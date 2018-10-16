@@ -25,6 +25,7 @@ name_list = ["Ethan", "John", "Joshua", "Michael", "Steven", "Stefan"]
 
 master_list = []
 
+# TODO: @Stefan make this more Pythonic
 for individual_name in name_list:
     returned_names = make_query(individual_name)
 
@@ -32,5 +33,7 @@ for individual_name in name_list:
     for single_name in returned_names:
         master_list.append(single_name)
 
+# Create a Pandas dataframe from master_list
 df = pd.DataFrame(master_list, columns=["Name"])
+# Export dataframe to CSV
 df.to_csv('names.csv', index=False)
