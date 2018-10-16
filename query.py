@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import re
 import requests
-import sys
-import csv
 import pandas as pd
 
 BASE_QUERY_CS_URL = "https://directory.utexas.edu/index.php?q=%28%26%28cn%3D{0}*%29%28utexasEduPersonMajor%3D*Compute"\
@@ -22,13 +20,6 @@ def masterclean(raw_html):
     names = re.split(r"[\s\W]*,[\s\W]*", html_purged)
     return [name.strip() for name in names]
 
-
-# E: Commented out to try feeding lists into query
-#if len(sys.argv) != 2:
-#    raise ValueError("Usage: query.py <name>")
-
-#query = sys.argv[1].lower().strip()
-#print(make_query(query))
 
 name_list = ["Ethan", "John", "Joshua", "Michael", "Steven", "Stefan"]
 
