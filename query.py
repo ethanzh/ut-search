@@ -5,7 +5,7 @@ import pandas as pd
 import random
 
 # Used to slice list after shuffling a list of several thousand names
-NUM_NAMES = 100
+NUM_NAMES = 10
 
 # TODO: Should we make this search for exact names? Right now "Daniel" also returns "Danielle"
 BASE_QUERY_CS_URL = "https://directory.utexas.edu/index.php?q=%28%26%28cn%3D{0}*%29%28utexasEduPersonMajor%3D*Compute"\
@@ -45,9 +45,14 @@ with open('cmu_female_names.txt') as f:
 
 shortened_list = shorten_list(name_list)
 
+counter = 0
+
 # TODO: @Stefan make this more Pythonic
 for individual_name in shortened_list:
     returned_names = make_query(individual_name)
+
+    counter += 1
+    print("Completed " + str(counter) + " of  " +  str(NUM_NAMES) + " trials")
 
     # TODO: add check for 'vCard', we also need to figure out what happens when no names are returned
     for single_name in returned_names:
