@@ -3,6 +3,7 @@ import re
 import requests
 import pandas as pd
 
+# TODO: Should we make this search for exact names? Right now "Daniel" also returns "Danielle"
 BASE_QUERY_CS_URL = "https://directory.utexas.edu/index.php?q=%28%26%28cn%3D{0}*%29%28utexasEduPersonMajor%3D*Compute"\
                     "r+Science%2C+Entry-Level*%29%29&scope=student&submit=Search"
 
@@ -21,9 +22,13 @@ def master_clean(raw_html):
     return [name.strip() for name in names]
 
 
-name_list = ["Ethan", "John", "Joshua", "Michael", "Steven", "Stefan"]
-
+name_list = []
 master_list = []
+
+# Create a list of names from text file
+with open('search_names.txt') as f:
+    for line in f:
+        name_list.append(line.rstrip('\n'))
 
 # TODO: @Stefan make this more Pythonic
 for individual_name in name_list:
