@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import re
 import requests
 import sys
+import csv
+import pandas as pd
 
 BASE_QUERY_CS_URL = "https://directory.utexas.edu/index.php?q=%28%26%28cn%3D{0}*%29%28utexasEduPersonMajor%3D*Compute"\
                     "r+Science%2C+Entry-Level*%29%29&scope=student&submit=Search"
@@ -21,8 +23,23 @@ def masterclean(raw_html):
     return [name.strip() for name in names]
 
 
-if len(sys.argv) != 2:
-    raise ValueError("Usage: query.py <name>")
+# E: Commented out to try feeding lists into query
+#if len(sys.argv) != 2:
+#    raise ValueError("Usage: query.py <name>")
 
-query = sys.argv[1].lower().strip()
-print(make_query(query))
+#query = sys.argv[1].lower().strip()
+#print(make_query(query))
+
+name_list = ["Ethan", "John", "Joshua", "Michael", "Steven", "Stefan"]
+
+master_list = []
+
+for name in name_list:
+    returned_names = make_query(name)
+
+    # TODO: add check for 'vCard', we also need to figure out what happens when no names are returned
+    for single_name in returned_names:
+        master_list.append(single_name)
+
+df = pd.DataFrame(master_list, columns=["Name"])
+df.to_csv('names.csv', index=False)
